@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Download de Vídeos do YouTube</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center bg-primary p-5 text-white">
+        Baixe vídeos do YouTube
+      </h1>
+
+      <form method="POST" id="videoForm">
+        <div class="mb-3">
+          <label for="url" class="form-label">Cole o link do vídeo:</label>
+          <input
+            type="text"
+            class="form-control"
+            name="url"
+            id="url"
+            placeholder="URL do vídeo do YouTube"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Baixar Vídeo</button>
+      </form>
+
+      <!-- Feedback de carregamento -->
+      <div id="loading" class="text-center mt-4" style="display: none">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+        <p>Baixando e convertendo o vídeo...</p>
+      </div>
+
+      {% if download_success %}
+      <div class="alert alert-success mt-4">
+        <h2>Vídeo baixado com sucesso!</h2>
+        <a
+          href="{{ url_for('static', filename=video_path) }}"
+          download
+          class="btn btn-success"
+          id="downloadBtn"
+        >
+          Baixar Vídeo
+        </a>
+      </div>
+      {% endif %}
+
+      <div class="video-list mt-4">
+        {% for video in videos %}
+        <div class="video-card card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ video }}</h5>
+            <a
+              href="{{ url_for('static', filename=video) }}"
+              download
+              class="btn btn-info"
+              onclick="deleteVideo('{{ video }}')"
+            >
+              Baixar Vídeo
+            </a>
+          </div>
+        </div>
+        {% else %}
+        <p>Não há vídeos para exibir.</p>
+        {% endfor %}
+      </div>
+
+      {% if error %}
+      <div class="alert alert-danger mt-4">
+        <p>{{ error }}</p>
+      </div>
+      {% endif %}
+    </div>
+    <div class="container mt-5 text-center">
+      <h2>Criando Conteúdo para YouTube:</h2>
+      Guia Completo para Download e Criação Se você está interessado em criar
+      conteúdo para o YouTube, é importante conhecer as melhores práticas para
+      garantir o sucesso do seu canal. Neste guia completo, abordaremos dicas
+      valiosas sobre como baixar vídeos, criar conteúdo original e se destacar
+      na plataforma. Baixando Vídeos do YouTube: Ferramentas de Download:
+      Existem diversas ferramentas online e aplicativos disponíveis para baixar
+      vídeos do YouTube. Certifique-se de escolher uma opção segura e confiável
+      para realizar o download. Respeite os Direitos Autorais: Ao baixar vídeos
+      do YouTube para criar conteúdo, lembre-se de respeitar os direitos
+      autorais. Sempre peça permissão ao criador original ou utilize apenas
+      conteúdo que esteja em conformidade com as diretrizes de uso.
+    </div>
+    <ins
+      class="adsbygoogle"
+      style="display: block"
+      data-ad-client="ca-pub-7370904251052030"
+      data-ad-slot="8158880016"
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+    ></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7370904251052030"
+      crossorigin="anonymous"
+    ></script>
+    <ins
+      class="adsbygoogle"
+      style="display: block"
+      data-ad-format="autorelaxed"
+      data-ad-client="ca-pub-7370904251052030"
+      data-ad-slot="2663010750"
+    ></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    <div class="container mt-5 text-center">
+      <h3>Criação de Conteúdo Original:</h3>
+      Identifique seu Nicho: Defina o nicho do seu canal e identifique o
+      público-alvo para o qual você deseja criar conteúdo. Isso ajudará a
+      direcionar suas criações e aumentar o engajamento dos espectadores. Seja
+      Criativo e Consistente: Busque por ideias inovadoras e criativas para os
+      seus vídeos. Mantenha uma programação de publicações consistente para
+      manter o interesse do seu público e fortalecer sua presença no YouTube.
+      Interaja com sua Audiência: A interação com os espectadores é fundamental
+      para construir uma comunidade engajada em torno do seu canal. Responda aos
+      comentários, promova enquetes e incentive a participação do público.
+    </div>
+
+    <!-- JavaScript do Bootstrap e AJAX -->
+
+    <!-- ADS-->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7370904251052030"
+      crossorigin="anonymous"
+    ></script>
+    <!-- vert -->
+    <ins
+      class="adsbygoogle"
+      style="display: block"
+      data-ad-client="ca-pub-7370904251052030"
+      data-ad-slot="4458769151"
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+    ></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7370904251052030"
+      crossorigin="anonymous"
+    ></script>
+    <!-- adhorizontal -->
+
+    <!-- ADS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const form = document.getElementById("videoForm");
+      const loadingDiv = document.getElementById("loading");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Impede o envio tradicional do formulário
+        loadingDiv.style.display = "block"; // Exibe o carregamento
+
+        const formData = new FormData(form);
+
+        fetch("/", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.text())
+          .then((html) => {
+            document.body.innerHTML = html; // Atualiza a página com a resposta
+            loadingDiv.style.display = "none"; // Esconde o carregamento
+          })
+          .catch((error) => {
+            console.error("Erro ao fazer o download:", error);
+            loadingDiv.style.display = "none"; // Esconde o carregamento
+          });
+      });
+
+      function deleteVideo(filename) {
+        fetch(`/delete_video/${filename}`, {
+          method: "POST",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              alert(data.message);
+            } else {
+              alert(data.message);
+            }
+          })
+          .catch((error) => console.error("Erro ao excluir o vídeo:", error));
+      }
+
+      // Função para remover os vídeos quando a página for atualizada ou fechada
+      window.onbeforeunload = function () {
+        // Faz uma requisição GET para o backend remover os vídeos
+        fetch("/remover_videos")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              console.log("Vídeos removidos com sucesso!");
+            } else {
+              console.error("Erro ao remover vídeos:", data.message);
+            }
+          })
+          .catch((error) => console.error("Erro de rede:", error));
+      };
+    </script>
+    <footer class="bg-dark text-white text-center py-4">
+      <div class="container py-5">
+        <p class="mb-0">
+          &copy; 2025 - Baixar YouTube. Todos os direitos reservados.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
