@@ -28,6 +28,7 @@ def index():
                 'format': 'best',  # Baixa o melhor vídeo até 480p e o melhor áudio
                 'outtmpl': 'static/%(id)s.%(ext)s',  # Define o nome do arquivo com base no ID do vídeo
                 'noplaylist': True,  # Impede o download de playlists
+                'cookiefile': 'cookies.txt',  # Caminho para o arquivo de cookies exportado
             }
 
             # Baixando o vídeo
